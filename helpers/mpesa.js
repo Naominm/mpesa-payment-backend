@@ -1,4 +1,4 @@
-const axios = require('axios');
+import { get, post } from 'axios';
 require('dotenv').config();
 
 const config = {
@@ -12,7 +12,7 @@ const config = {
 
 async function getAccessToken() {
   const auth = Buffer.from(`${config.consumerKey}:${config.consumerSecret}`).toString('base64');
-  const response = await axios.get(`${config.baseURL}/oauth/v1/generate?grant_type=client_credentials`, {
+  const response = await get(`${config.baseURL}/oauth/v1/generate?grant_type=client_credentials`, {
     headers: { Authorization: `Basic ${auth}` },
   });
   return response.data.access_token;
@@ -37,11 +37,11 @@ async function stkPush(phone, amount) {
     TransactionDesc: 'Testing STK push',
   };
 
-  const response = await axios.post(`${config.baseURL}/mpesa/stkpush/v1/processrequest`, payload, {
+  const response = await post(`${config.baseURL}/mpesa/stkpush/v1/processrequest`, payload, {
     headers: { Authorization: `Bearer ${token}` },
   });
 
   return response.data;
 }
 
-module.exports = { stkPush };
+export default { stkPush };
