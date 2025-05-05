@@ -1,4 +1,4 @@
-const { stkPush } = require('../helpers/mpesa');
+import { stkPush } from '../helpers/mpesa.js';
 
 const initiateSTKPush = async (req, res) => {
   const { phone, amount } = req.body;
@@ -16,4 +16,4 @@ const initiateSTKPush = async (req, res) => {
   }
 };
 
-module.exports = { initiateSTKPush };
+export default { initiateSTKPush };
